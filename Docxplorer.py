@@ -1,4 +1,4 @@
-# Docxplorer v0.3.0
+# Docxplorer v0.3.1
 import docx
 import os
 from tkinter import filedialog
@@ -72,6 +72,8 @@ search_entry = tk.Entry(screen, width=45, borderwidth=4)
 def finder(f_cwd=dir_entry.get()):
 	f_result_list = []
 	f_result_find = search_entry.get().lower().encode()
+	if not f_result_find:
+		return ['Output screen']
 	f_dir = os.listdir(f_cwd)
 	for _ in f_dir:
 		if _.endswith('.docx'):
@@ -106,9 +108,12 @@ def output_find():
 
 	output_text.configure(state='normal')
 	output_text.delete(1.0, tk.END)
-	output_text.insert(1.0, f"{result_len if found else 'No'} match{'' if result_len == 1 else 'es'} found{':' if found else ''}\n")
-	for _ in set(result_list):
-		output_text.insert(tk.END, f" - {ws_decor(_.split('.')[0].replace(print_dir, ''), 36)} {result_list.count(_)} time{'s' if result_list.count(_) > 1 else ''}\n")
+	if result_list != ['Output screen']:
+		output_text.insert(1.0, f"{result_len if found else 'No'} match{'' if result_len == 1 else 'es'} found{':' if found else ''}\n")
+		for _ in set(result_list):
+			output_text.insert(tk.END, f" - {ws_decor(_.split('.')[0].replace(print_dir, ''), 36)} {result_list.count(_)} time{'s' if result_list.count(_) > 1 else ''}\n")
+	else:
+		output_text.insert(tk.END, 'Output screen')
 	output_text.configure(state='disabled')
 
 
