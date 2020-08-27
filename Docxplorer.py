@@ -69,7 +69,6 @@ def output_find():
 
 
 search_button = tk.Button(screen, text=' Search ', width=9, padx=3, command=output_find)
-output_text_scrollbar = tk.Scrollbar(screen, command=output_text)
 
 for _ in range(0, 11):
 	tk.Label(screen, text='', width=6).grid(row=0, column=_)
